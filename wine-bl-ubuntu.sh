@@ -84,7 +84,7 @@ else
 fi
 
 echo "Acquiring libfaudio0 from external repository"
-wget -nv -nc "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/amd64/libfaudio0_20.01-0~buster_amd64.deb" "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/i386/libfaudio0_20.01-0~buster_i386.deb"
+wget -nv -nc "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/amd64/libfaudio0_19.07-0~bionic_amd64.deb" "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/xUbuntu_18.04/i386/libfaudio0_19.07-0~bionic_i386.deb"
 
 STATUS=$?
 
@@ -106,7 +106,7 @@ then
 	fi
 fi
 
-apt-get -qq -o=Dpkg::Use-Pty=0 install -y "./libfaudio0_20.01-0~buster_amd64.deb" "./libfaudio0_20.01-0~buster_i386.deb"
+apt-get -qq -o=Dpkg::Use-Pty=0 install -y "./libfaudio0_19.07-0~bionic_amd64.deb" "./libfaudio0_19.07-0~bionic_i386.deb"
 
 if [ $? -gt 0 ]
 then
@@ -114,18 +114,11 @@ then
 	fail
 fi
 
-rm libfaudio0_20.01-0~buster_amd64.deb libfaudio0_20.01-0~buster_i386.deb
+rm libfaudio0_19.07-0~bionic_amd64.deb libfaudio0_19.07-0~bionic_i386.deb
 
 echo "Adding winehq repository"
-echo "deb https://dl.winehq.org/wine-builds/debian/ buster main" > /etc/apt/sources.list.d/winehq.list
+add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ bionic main' 
 apt-get -qq update
-
-if [ $? -gt 0 ] 
-then
-	echo "Failed to update repositories after adding wine repo, removing wine repo just in case..."
-	rm /etc/apt/sources.list.d/winehq.list
-	fail
-fi
 
 echo "Installing wine..."
 apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb
