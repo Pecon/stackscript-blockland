@@ -13,7 +13,7 @@ function fail
 
 if [ "$EUID" -ne 0 ] 
 then
-	echo "This script must be run as root. Use sudo or log in root."
+	echo "This script must be run as root. Use sudo or log in as root."
 	fail
 fi
 
