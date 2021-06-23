@@ -62,62 +62,8 @@ then
 	fail
 fi
 
-echo "Enabling i386 packages in apt sources.list"
-cp /etc/apt/sources.list sources.list.bak
-sed -i 's/deb h/deb [arch=i386,amd64] h/g' /etc/apt/sources.list
-
-if [ $? -gt 0 ]
-then
-	echo "Failed to edit sources.list."
-	fail
-fi
-
-apt-get -qq update
-
-if [ $? -gt 0 ]
-then
-	echo "Failed to update packages after editing sources.list, reverting changes..."
-	cp sources.list.bak /etc/apt/sources.list
-	fail
-else
-	rm sources.list.bak
-fi
-
-echo "Acquiring libfaudio0 from external repository"
-wget -nv -nc "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/amd64/libfaudio0_20.01-0~buster_amd64.deb" "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/i386/libfaudio0_20.01-0~buster_i386.deb"
-
-STATUS=$?
-
-if [ $STATUS -gt 0 ]
-then
-
-	if [ $STATUS -eq 8 ] 
-	then
-		echo "The download server issued an error response, this script might be out of date."
-		fail
-	elif [ $STATUS -gt 2 ] 
-	then
-		echo "General network error detected. Try again when the network is up."
-		fail
-	elif [ $STATUS -eq 1 ] 
-	then
-		echo "wget exited with generic error code, maybe everything is okay?"
-		pause
-	fi
-fi
-
-apt-get -qq -o=Dpkg::Use-Pty=0 install -y "./libfaudio0_20.01-0~buster_amd64.deb" "./libfaudio0_20.01-0~buster_i386.deb"
-
-if [ $? -gt 0 ]
-then
-	echo "Failed to install libfaudio0 package."
-	fail
-fi
-
-rm libfaudio0_20.01-0~buster_amd64.deb libfaudio0_20.01-0~buster_i386.deb
-
 echo "Adding winehq repository"
-echo "deb https://dl.winehq.org/wine-builds/debian/ buster main" > /etc/apt/sources.list.d/winehq.list
+echo "deb https://dl.winehq.org/wine-builds/debian/ stretch main" > /etc/apt/sources.list.d/winehq.list
 apt-get -qq update
 
 if [ $? -gt 0 ] 
@@ -128,7 +74,7 @@ then
 fi
 
 echo "Installing wine..."
-apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb
+apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb libncurses5
 
 
 if [ $? -gt 0 ] 
