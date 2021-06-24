@@ -74,7 +74,7 @@ then
 fi
 
 echo "Installing wine..."
-apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb libncurses5
+apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb libncurses5 libncurses5:i386
 
 
 if [ $? -gt 0 ] 
