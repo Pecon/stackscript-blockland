@@ -83,41 +83,8 @@ else
 	rm sources.list.bak
 fi
 
-echo "Acquiring libfaudio0 from external repository"
-wget -nv -nc "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/amd64/libfaudio0_20.01-0~buster_amd64.deb" "https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Debian_10/i386/libfaudio0_20.01-0~buster_i386.deb"
-
-STATUS=$?
-
-if [ $STATUS -gt 0 ]
-then
-
-	if [ $STATUS -eq 8 ] 
-	then
-		echo "The download server issued an error response, this script might be out of date."
-		fail
-	elif [ $STATUS -gt 2 ] 
-	then
-		echo "General network error detected. Try again when the network is up."
-		fail
-	elif [ $STATUS -eq 1 ] 
-	then
-		echo "wget exited with generic error code, maybe everything is okay?"
-		pause
-	fi
-fi
-
-apt-get -qq -o=Dpkg::Use-Pty=0 install -y "./libfaudio0_20.01-0~buster_amd64.deb" "./libfaudio0_20.01-0~buster_i386.deb"
-
-if [ $? -gt 0 ]
-then
-	echo "Failed to install libfaudio0 package."
-	fail
-fi
-
-rm libfaudio0_20.01-0~buster_amd64.deb libfaudio0_20.01-0~buster_i386.deb
-
 echo "Adding winehq repository"
-echo "deb https://dl.winehq.org/wine-builds/debian/ buster main" > /etc/apt/sources.list.d/winehq.list
+echo "deb https://dl.winehq.org/wine-builds/debian/ bullseye main" > /etc/apt/sources.list.d/winehq.list
 apt-get -qq update
 
 if [ $? -gt 0 ] 
@@ -128,7 +95,7 @@ then
 fi
 
 echo "Installing wine..."
-apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends winehq-stable xvfb
+apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends wine-stable-i386=5.0.2~bullseye wine-stable-amd64=5.0.2~bullseye wine-stable=5.0.2~bullseye winehq-stable=5.0.2~bullseye xvfb
 
 
 if [ $? -gt 0 ] 

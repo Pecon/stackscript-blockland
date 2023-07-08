@@ -8,13 +8,13 @@ These scripts are designed for specific distros and versions which are unlikely 
 ## Usage
 
 ### wine-bl-debian.sh
-**FOR DEBIAN 10 DISTRO ONLY**
-This script acquires and automatically installs the latest version of wine
+**FOR DEBIAN 11 DISTRO ONLY**
+This script acquires and automatically installs the latest appropriate version of wine for hosting BL
 
 Download this script onto the server and then execute it with `bash wine-bl-debian.sh` as root
 
 ### wine-bl-ubuntu.sh
 **FOR UBUNTU 18.04 DISTRO ONLY**
-This script also acquires and automatically installs the latest version of wine
+This script also acquires and automatically installs the latest appropriate version of wine for hosting BL
 
 Download this script onto the server and then execute it with `bash wine-bl-ubuntu.sh` as root
