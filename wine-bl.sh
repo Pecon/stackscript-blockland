@@ -95,7 +95,7 @@ then
 fi
 
 echo "Installing wine..."
-apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends wine-stable-i386=5.0.2~bullseye wine-stable-amd64=5.0.2~bullseye wine-stable=5.0.2~bullseye winehq-stable=5.0.2~bullseye xvfb
+apt-get -qq -o=Dpkg::Use-Pty=0 install --install-recommends wine-stable-i386=5.0.2~bullseye wine-stable-amd64=5.0.2~bullseye wine-stable=5.0.2~bullseye winehq-stable=5.0.2~bullseye xvfb  libncurses5 libncurses5:i386
 
 
 if [ $? -gt 0 ] 

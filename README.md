@@ -3,18 +3,11 @@ A various scripts that are useful for setting up a VPS to host Blockland servers
 
 ## Requirements
 1 to 2 GB of memory is recommended for hosting Blockland servers, depending on how heavy your server is.
-These scripts are designed for specific distros and versions which are unlikely to work on others, keep this in mind when using them.
 
 ## Usage
 
-### wine-bl-debian.sh
+### wine-bl.sh
 **FOR DEBIAN 11 DISTRO ONLY**
-This script acquires and automatically installs the latest appropriate version of wine for hosting BL
+This script acquires and automatically installs wine 5.0.2, which is known to work for hosting headless BL servers. Newer versions have issues, making this install script necessary.
 
-Download this script onto the server and then execute it with `bash wine-bl-debian.sh` as root
-
-### wine-bl-ubuntu.sh
-**FOR UBUNTU 18.04 DISTRO ONLY**
-This script also acquires and automatically installs the latest appropriate version of wine for hosting BL
-
-Download this script onto the server and then execute it with `bash wine-bl-ubuntu.sh` as root
+Download this script onto the server and then execute it with `bash wine-bl.sh` as root
